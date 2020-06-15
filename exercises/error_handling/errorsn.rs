@@ -24,12 +24,12 @@ use std::fmt;
 use std::io;
 
 // PositiveNonzeroInteger is a struct defined below the tests.
-fn read_and_validate(b: &mut dyn io::BufRead) -> Result<PositiveNonzeroInteger, ???> {
+fn read_and_validate(b: &mut io::BufRead) -> Result<PositiveNonzeroInteger, Box<error::Error>> {
     let mut line = String::new();
-    b.read_line(&mut line);
-    let num: i64 = line.trim().parse();
-    let answer = PositiveNonzeroInteger::new(num);
-    answer
+    b.read_line(&mut line)?;
+    let num: i64 = line.trim().parse()?;
+    let answer = PositiveNonzeroInteger::new(num)?;
+    Ok(answer)
 }
 
 //
@@ -65,6 +65,7 @@ fn test_ioerror() {
     struct Broken;
     impl io::Read for Broken {
         fn read(&mut self, _buf: &mut [u8]) -> io::Result<usize> {
+            println!("RAVI returning brokenpipe!");
             Err(io::Error::new(io::ErrorKind::BrokenPipe, "uh-oh!"))
         }
     }
