@@ -1,8 +1,6 @@
 // structs1.rs
 // Address all the TODOs to make the tests pass!
 
-// I AM NOT DONE
-
 struct ColorClassicStruct {
     name: String,
     hex: String,
@@ -45,7 +43,8 @@ mod tests {
     #[test]
     fn unit_structs() {
         // TODO: Instantiate a unit struct!
-        let green = ColorUnitStruct;
+        let unit_struct = UnitStruct;
+        let message = format!("{:?}s are fun!", unit_struct);
 
         assert_eq!(message, "UnitStructs are fun!");
     }
